@@ -1,9 +1,18 @@
 # https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
 
 *~
+*.log
+
+# CARGO
+.cargo
+target
+vendor
+vendor.tar
+/result
 
 # KDE Plasma
 .directory
+*.kate-swp
 
 # VSCODE / VSCodium
 .vscode

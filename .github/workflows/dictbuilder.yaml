@@ -1,0 +1,32 @@
+name: Run DictBuilder on PR
+
+on:
+  pull_request:
+    paths:
+      - '**/*.dic'  # Trigger on changes to any .dic files
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          override-with: rustup
+
+      - name: Build dictbuilder
+        run: cargo build --release
+
+      - name: Run dictbuilder
+        run: |
+          # Process only .dic files that have changed
+          for file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.dic$'); do
+            echo "Processing $file"
+            ./target/release/dictbuilder "$file"
+          done

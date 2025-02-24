@@ -1,0 +1,10 @@
+[package]
+name = "dictbuilder"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "dictbuilder"
+path = "src/main.rs"
+
+[dependencies]
